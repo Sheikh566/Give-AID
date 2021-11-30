@@ -1,0 +1,455 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="GiveAIDdbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ADMIN">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="admin_fname" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="admin_lname" Type="varchar" MaxLength="32" />
+          <Property Name="admin_email" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="admin_password" Type="varchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CAUSES">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cause_name" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="cause_funds" Type="varchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DONATIONS">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="donation_date" Type="smalldatetime" Nullable="false" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="cause_id" Type="int" />
+          <Property Name="donation_amount" Type="int" />
+        </EntityType>
+        <EntityType Name="EVENTS">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="event_title" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="event_date" Type="date" Nullable="false" />
+          <Property Name="event_poster" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="event_description" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="FEEDBACKS">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="feedback_msg" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="feedback_date" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GALLERY">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="image_url" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="event_id" Type="int" />
+        </EntityType>
+        <EntityType Name="JOBS">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="job_title" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="job_description" Type="varchar" MaxLength="255" />
+          <Property Name="job_status" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="PARTNERS">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="partner_name" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="partner_logo" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="USERS">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_fname" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="user_lname" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="user_email" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="user_password" Type="varchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__DONATIONS__cause__5165187F">
+          <End Role="CAUSES" Type="Self.CAUSES" Multiplicity="0..1" />
+          <End Role="DONATIONS" Type="Self.DONATIONS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAUSES">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DONATIONS">
+              <PropertyRef Name="cause_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DONATIONS__user___5070F446">
+          <End Role="USERS" Type="Self.USERS" Multiplicity="0..1" />
+          <End Role="DONATIONS" Type="Self.DONATIONS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERS">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DONATIONS">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__FEEDBACKS__user___412EB0B6">
+          <End Role="USERS" Type="Self.USERS" Multiplicity="0..1" />
+          <End Role="FEEDBACKS" Type="Self.FEEDBACKS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERS">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="FEEDBACKS">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__GALLERY__event_i__3C69FB99">
+          <End Role="EVENTS" Type="Self.EVENTS" Multiplicity="0..1" />
+          <End Role="GALLERY" Type="Self.GALLERY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EVENTS">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="GALLERY">
+              <PropertyRef Name="event_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GiveAIDdbModelStoreContainer">
+          <EntitySet Name="ADMIN" EntityType="Self.ADMIN" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CAUSES" EntityType="Self.CAUSES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DONATIONS" EntityType="Self.DONATIONS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EVENTS" EntityType="Self.EVENTS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FEEDBACKS" EntityType="Self.FEEDBACKS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GALLERY" EntityType="Self.GALLERY" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="JOBS" EntityType="Self.JOBS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PARTNERS" EntityType="Self.PARTNERS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USERS" EntityType="Self.USERS" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__DONATIONS__cause__5165187F" Association="Self.FK__DONATIONS__cause__5165187F">
+            <End Role="CAUSES" EntitySet="CAUSES" />
+            <End Role="DONATIONS" EntitySet="DONATIONS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DONATIONS__user___5070F446" Association="Self.FK__DONATIONS__user___5070F446">
+            <End Role="USERS" EntitySet="USERS" />
+            <End Role="DONATIONS" EntitySet="DONATIONS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__FEEDBACKS__user___412EB0B6" Association="Self.FK__FEEDBACKS__user___412EB0B6">
+            <End Role="USERS" EntitySet="USERS" />
+            <End Role="FEEDBACKS" EntitySet="FEEDBACKS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__GALLERY__event_i__3C69FB99" Association="Self.FK__GALLERY__event_i__3C69FB99">
+            <End Role="EVENTS" EntitySet="EVENTS" />
+            <End Role="GALLERY" EntitySet="GALLERY" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="GiveAIDdbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ADMIN">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="admin_fname" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="admin_lname" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="admin_email" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="admin_password" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CAUSES">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cause_name" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cause_funds" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="DONATIONS" Relationship="Self.FK__DONATIONS__cause__5165187F" FromRole="CAUSES" ToRole="DONATIONS" />
+        </EntityType>
+        <EntityType Name="DONATIONS">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="donation_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="cause_id" Type="Int32" />
+          <Property Name="donation_amount" Type="Int32" />
+          <NavigationProperty Name="CAUSES" Relationship="Self.FK__DONATIONS__cause__5165187F" FromRole="DONATIONS" ToRole="CAUSES" />
+          <NavigationProperty Name="USERS" Relationship="Self.FK__DONATIONS__user___5070F446" FromRole="DONATIONS" ToRole="USERS" />
+        </EntityType>
+        <EntityType Name="EVENTS">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="event_title" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="event_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="event_poster" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="event_description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="GALLERY" Relationship="Self.FK__GALLERY__event_i__3C69FB99" FromRole="EVENTS" ToRole="GALLERY" />
+        </EntityType>
+        <EntityType Name="FEEDBACKS">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="feedback_msg" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="feedback_date" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="USERS" Relationship="Self.FK__FEEDBACKS__user___412EB0B6" FromRole="FEEDBACKS" ToRole="USERS" />
+        </EntityType>
+        <EntityType Name="GALLERY">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="image_url" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="event_id" Type="Int32" />
+          <NavigationProperty Name="EVENTS" Relationship="Self.FK__GALLERY__event_i__3C69FB99" FromRole="GALLERY" ToRole="EVENTS" />
+        </EntityType>
+        <EntityType Name="JOBS">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="job_title" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="job_description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="job_status" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="PARTNERS">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="partner_name" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="partner_logo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="USERS">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_fname" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="user_lname" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="user_email" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="user_password" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="DONATIONS" Relationship="Self.FK__DONATIONS__user___5070F446" FromRole="USERS" ToRole="DONATIONS" />
+          <NavigationProperty Name="FEEDBACKS" Relationship="Self.FK__FEEDBACKS__user___412EB0B6" FromRole="USERS" ToRole="FEEDBACKS" />
+        </EntityType>
+        <Association Name="FK__DONATIONS__cause__5165187F">
+          <End Role="CAUSES" Type="Self.CAUSES" Multiplicity="0..1" />
+          <End Role="DONATIONS" Type="Self.DONATIONS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAUSES">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DONATIONS">
+              <PropertyRef Name="cause_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DONATIONS__user___5070F446">
+          <End Role="USERS" Type="Self.USERS" Multiplicity="0..1" />
+          <End Role="DONATIONS" Type="Self.DONATIONS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERS">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DONATIONS">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__GALLERY__event_i__3C69FB99">
+          <End Role="EVENTS" Type="Self.EVENTS" Multiplicity="0..1" />
+          <End Role="GALLERY" Type="Self.GALLERY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EVENTS">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="GALLERY">
+              <PropertyRef Name="event_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__FEEDBACKS__user___412EB0B6">
+          <End Role="USERS" Type="Self.USERS" Multiplicity="0..1" />
+          <End Role="FEEDBACKS" Type="Self.FEEDBACKS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERS">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="FEEDBACKS">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GiveAIDdbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ADMIN" EntityType="Self.ADMIN" />
+          <EntitySet Name="CAUSES" EntityType="Self.CAUSES" />
+          <EntitySet Name="DONATIONS" EntityType="Self.DONATIONS" />
+          <EntitySet Name="EVENTS" EntityType="Self.EVENTS" />
+          <EntitySet Name="FEEDBACKS" EntityType="Self.FEEDBACKS" />
+          <EntitySet Name="GALLERY" EntityType="Self.GALLERY" />
+          <EntitySet Name="JOBS" EntityType="Self.JOBS" />
+          <EntitySet Name="PARTNERS" EntityType="Self.PARTNERS" />
+          <EntitySet Name="USERS" EntityType="Self.USERS" />
+          <AssociationSet Name="FK__DONATIONS__cause__5165187F" Association="Self.FK__DONATIONS__cause__5165187F">
+            <End Role="CAUSES" EntitySet="CAUSES" />
+            <End Role="DONATIONS" EntitySet="DONATIONS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DONATIONS__user___5070F446" Association="Self.FK__DONATIONS__user___5070F446">
+            <End Role="USERS" EntitySet="USERS" />
+            <End Role="DONATIONS" EntitySet="DONATIONS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__GALLERY__event_i__3C69FB99" Association="Self.FK__GALLERY__event_i__3C69FB99">
+            <End Role="EVENTS" EntitySet="EVENTS" />
+            <End Role="GALLERY" EntitySet="GALLERY" />
+          </AssociationSet>
+          <AssociationSet Name="FK__FEEDBACKS__user___412EB0B6" Association="Self.FK__FEEDBACKS__user___412EB0B6">
+            <End Role="USERS" EntitySet="USERS" />
+            <End Role="FEEDBACKS" EntitySet="FEEDBACKS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="GiveAIDdbModelStoreContainer" CdmEntityContainer="GiveAIDdbEntities">
+          <EntitySetMapping Name="ADMIN">
+            <EntityTypeMapping TypeName="GiveAIDdbModel.ADMIN">
+              <MappingFragment StoreEntitySet="ADMIN">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="admin_fname" ColumnName="admin_fname" />
+                <ScalarProperty Name="admin_lname" ColumnName="admin_lname" />
+                <ScalarProperty Name="admin_email" ColumnName="admin_email" />
+                <ScalarProperty Name="admin_password" ColumnName="admin_password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CAUSES">
+            <EntityTypeMapping TypeName="GiveAIDdbModel.CAUSES">
+              <MappingFragment StoreEntitySet="CAUSES">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="cause_name" ColumnName="cause_name" />
+                <ScalarProperty Name="cause_funds" ColumnName="cause_funds" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DONATIONS">
+            <EntityTypeMapping TypeName="GiveAIDdbModel.DONATIONS">
+              <MappingFragment StoreEntitySet="DONATIONS">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="donation_date" ColumnName="donation_date" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="cause_id" ColumnName="cause_id" />
+                <ScalarProperty Name="donation_amount" ColumnName="donation_amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EVENTS">
+            <EntityTypeMapping TypeName="GiveAIDdbModel.EVENTS">
+              <MappingFragment StoreEntitySet="EVENTS">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="event_title" ColumnName="event_title" />
+                <ScalarProperty Name="event_date" ColumnName="event_date" />
+                <ScalarProperty Name="event_poster" ColumnName="event_poster" />
+                <ScalarProperty Name="event_description" ColumnName="event_description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FEEDBACKS">
+            <EntityTypeMapping TypeName="GiveAIDdbModel.FEEDBACKS">
+              <MappingFragment StoreEntitySet="FEEDBACKS">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="feedback_msg" ColumnName="feedback_msg" />
+                <ScalarProperty Name="feedback_date" ColumnName="feedback_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GALLERY">
+            <EntityTypeMapping TypeName="GiveAIDdbModel.GALLERY">
+              <MappingFragment StoreEntitySet="GALLERY">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="image_url" ColumnName="image_url" />
+                <ScalarProperty Name="event_id" ColumnName="event_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JOBS">
+            <EntityTypeMapping TypeName="GiveAIDdbModel.JOBS">
+              <MappingFragment StoreEntitySet="JOBS">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="job_title" ColumnName="job_title" />
+                <ScalarProperty Name="job_description" ColumnName="job_description" />
+                <ScalarProperty Name="job_status" ColumnName="job_status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PARTNERS">
+            <EntityTypeMapping TypeName="GiveAIDdbModel.PARTNERS">
+              <MappingFragment StoreEntitySet="PARTNERS">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="partner_name" ColumnName="partner_name" />
+                <ScalarProperty Name="partner_logo" ColumnName="partner_logo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USERS">
+            <EntityTypeMapping TypeName="GiveAIDdbModel.USERS">
+              <MappingFragment StoreEntitySet="USERS">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="user_fname" ColumnName="user_fname" />
+                <ScalarProperty Name="user_lname" ColumnName="user_lname" />
+                <ScalarProperty Name="user_email" ColumnName="user_email" />
+                <ScalarProperty Name="user_password" ColumnName="user_password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

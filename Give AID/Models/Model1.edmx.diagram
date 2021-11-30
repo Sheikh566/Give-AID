@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5eea095a4c9741b8892bbc5d0e3a77f0" Name="Diagram1">
+        <EntityTypeShape EntityType="GiveAIDdbModel.ADMIN" Width="1.5" PointX="5.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GiveAIDdbModel.CAUSES" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GiveAIDdbModel.DONATIONS" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GiveAIDdbModel.EVENTS" Width="1.5" PointX="5.75" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="GiveAIDdbModel.FEEDBACKS" Width="1.5" PointX="3" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GiveAIDdbModel.GALLERY" Width="1.5" PointX="8" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="GiveAIDdbModel.JOBS" Width="1.5" PointX="7.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GiveAIDdbModel.PARTNERS" Width="1.5" PointX="5.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GiveAIDdbModel.USERS" Width="1.5" PointX="0.75" PointY="3.5" IsExpanded="true" />
+        <AssociationConnector Association="GiveAIDdbModel.FK__DONATIONS__cause__5165187F" ManuallyRouted="false" />
+        <AssociationConnector Association="GiveAIDdbModel.FK__DONATIONS__user___5070F446" ManuallyRouted="false" />
+        <AssociationConnector Association="GiveAIDdbModel.FK__GALLERY__event_i__3C69FB99" ManuallyRouted="false" />
+        <AssociationConnector Association="GiveAIDdbModel.FK__FEEDBACKS__user___412EB0B6" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
