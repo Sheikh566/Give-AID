@@ -1,0 +1,1 @@
+<ImageField path='./EVENT/eventPosters/' source={"event_poster"} title="Poster"/>

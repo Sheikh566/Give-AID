@@ -17,6 +17,5 @@ namespace Give_AID.Models
         public int id { get; set; }
         public string job_title { get; set; }
         public string job_description { get; set; }
-        public string job_status { get; set; }
     }
 }

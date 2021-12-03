@@ -9,6 +9,7 @@
 
 namespace Give_AID.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -18,7 +19,7 @@ namespace Give_AID.Models
         public Nullable<int> user_id { get; set; }
         public string feedback_msg { get; set; }
         public System.DateTime feedback_date { get; set; }
-    
+        [JsonIgnore]
         public virtual USERS USERS { get; set; }
     }
 }

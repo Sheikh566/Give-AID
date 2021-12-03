@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="GiveAIDdbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="GiveAIDdbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ADMIN">
           <Key>
             <PropertyRef Name="id" />
@@ -67,7 +67,6 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="job_title" Type="varchar" MaxLength="32" Nullable="false" />
           <Property Name="job_description" Type="varchar" MaxLength="255" />
-          <Property Name="job_status" Type="nchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="PARTNERS">
           <Key>
@@ -162,29 +161,55 @@
             <End Role="GALLERY" EntitySet="GALLERY" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="GiveAIDdbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="GiveAIDdbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ADMIN" EntityType="GiveAIDdbModel.ADMIN" />
+          <EntitySet Name="CAUSES" EntityType="GiveAIDdbModel.CAUSES" />
+          <EntitySet Name="DONATIONS" EntityType="GiveAIDdbModel.DONATIONS" />
+          <EntitySet Name="EVENTS" EntityType="GiveAIDdbModel.EVENTS" />
+          <EntitySet Name="FEEDBACKS" EntityType="GiveAIDdbModel.FEEDBACKS" />
+          <EntitySet Name="GALLERY" EntityType="GiveAIDdbModel.GALLERY" />
+          <EntitySet Name="JOBS" EntityType="GiveAIDdbModel.JOBS" />
+          <EntitySet Name="PARTNERS" EntityType="GiveAIDdbModel.PARTNERS" />
+          <EntitySet Name="USERS" EntityType="GiveAIDdbModel.USERS" />
+          <AssociationSet Name="FK__DONATIONS__cause__5165187F" Association="GiveAIDdbModel.FK__DONATIONS__cause__5165187F">
+            <End Role="CAUSES" EntitySet="CAUSES" />
+            <End Role="DONATIONS" EntitySet="DONATIONS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DONATIONS__user___5070F446" Association="GiveAIDdbModel.FK__DONATIONS__user___5070F446">
+            <End Role="USERS" EntitySet="USERS" />
+            <End Role="DONATIONS" EntitySet="DONATIONS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__GALLERY__event_i__3C69FB99" Association="GiveAIDdbModel.FK__GALLERY__event_i__3C69FB99">
+            <End Role="EVENTS" EntitySet="EVENTS" />
+            <End Role="GALLERY" EntitySet="GALLERY" />
+          </AssociationSet>
+          <AssociationSet Name="FK__FEEDBACKS__user___412EB0B6" Association="GiveAIDdbModel.FK__FEEDBACKS__user___412EB0B6">
+            <End Role="USERS" EntitySet="USERS" />
+            <End Role="FEEDBACKS" EntitySet="FEEDBACKS" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="ADMIN">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="admin_fname" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="admin_fname" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
           <Property Name="admin_lname" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="admin_email" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="admin_password" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="admin_email" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="admin_password" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="CAUSES">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="cause_name" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="cause_funds" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="DONATIONS" Relationship="Self.FK__DONATIONS__cause__5165187F" FromRole="CAUSES" ToRole="DONATIONS" />
+          <Property Name="cause_name" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="cause_funds" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DONATIONS" Relationship="GiveAIDdbModel.FK__DONATIONS__cause__5165187F" FromRole="CAUSES" ToRole="DONATIONS" />
         </EntityType>
         <EntityType Name="DONATIONS">
           <Key>
@@ -195,19 +220,19 @@
           <Property Name="user_id" Type="Int32" />
           <Property Name="cause_id" Type="Int32" />
           <Property Name="donation_amount" Type="Int32" />
-          <NavigationProperty Name="CAUSES" Relationship="Self.FK__DONATIONS__cause__5165187F" FromRole="DONATIONS" ToRole="CAUSES" />
-          <NavigationProperty Name="USERS" Relationship="Self.FK__DONATIONS__user___5070F446" FromRole="DONATIONS" ToRole="USERS" />
+          <NavigationProperty Name="CAUSES" Relationship="GiveAIDdbModel.FK__DONATIONS__cause__5165187F" FromRole="DONATIONS" ToRole="CAUSES" />
+          <NavigationProperty Name="USERS" Relationship="GiveAIDdbModel.FK__DONATIONS__user___5070F446" FromRole="DONATIONS" ToRole="USERS" />
         </EntityType>
         <EntityType Name="EVENTS">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="event_title" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="event_title" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
           <Property Name="event_date" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="event_poster" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="event_poster" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="event_description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="GALLERY" Relationship="Self.FK__GALLERY__event_i__3C69FB99" FromRole="EVENTS" ToRole="GALLERY" />
+          <NavigationProperty Name="GALLERY" Relationship="GiveAIDdbModel.FK__GALLERY__event_i__3C69FB99" FromRole="EVENTS" ToRole="GALLERY" />
         </EntityType>
         <EntityType Name="FEEDBACKS">
           <Key>
@@ -215,51 +240,50 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="user_id" Type="Int32" />
-          <Property Name="feedback_msg" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="feedback_msg" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="feedback_date" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="USERS" Relationship="Self.FK__FEEDBACKS__user___412EB0B6" FromRole="FEEDBACKS" ToRole="USERS" />
+          <NavigationProperty Name="USERS" Relationship="GiveAIDdbModel.FK__FEEDBACKS__user___412EB0B6" FromRole="FEEDBACKS" ToRole="USERS" />
         </EntityType>
         <EntityType Name="GALLERY">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="image_url" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="image_url" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="event_id" Type="Int32" />
-          <NavigationProperty Name="EVENTS" Relationship="Self.FK__GALLERY__event_i__3C69FB99" FromRole="GALLERY" ToRole="EVENTS" />
+          <NavigationProperty Name="EVENTS" Relationship="GiveAIDdbModel.FK__GALLERY__event_i__3C69FB99" FromRole="GALLERY" ToRole="EVENTS" />
         </EntityType>
         <EntityType Name="JOBS">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="job_title" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="job_title" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
           <Property Name="job_description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="job_status" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="PARTNERS">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="partner_name" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="partner_logo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="partner_name" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="partner_logo" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="USERS">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="user_fname" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="user_lname" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="user_email" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="user_password" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="DONATIONS" Relationship="Self.FK__DONATIONS__user___5070F446" FromRole="USERS" ToRole="DONATIONS" />
-          <NavigationProperty Name="FEEDBACKS" Relationship="Self.FK__FEEDBACKS__user___412EB0B6" FromRole="USERS" ToRole="FEEDBACKS" />
+          <Property Name="user_fname" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="user_lname" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="user_email" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="user_password" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DONATIONS" Relationship="GiveAIDdbModel.FK__DONATIONS__user___5070F446" FromRole="USERS" ToRole="DONATIONS" />
+          <NavigationProperty Name="FEEDBACKS" Relationship="GiveAIDdbModel.FK__FEEDBACKS__user___412EB0B6" FromRole="USERS" ToRole="FEEDBACKS" />
         </EntityType>
         <Association Name="FK__DONATIONS__cause__5165187F">
-          <End Role="CAUSES" Type="Self.CAUSES" Multiplicity="0..1" />
-          <End Role="DONATIONS" Type="Self.DONATIONS" Multiplicity="*" />
+          <End Type="GiveAIDdbModel.CAUSES" Role="CAUSES" Multiplicity="0..1" />
+          <End Type="GiveAIDdbModel.DONATIONS" Role="DONATIONS" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CAUSES">
               <PropertyRef Name="id" />
@@ -270,8 +294,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__DONATIONS__user___5070F446">
-          <End Role="USERS" Type="Self.USERS" Multiplicity="0..1" />
-          <End Role="DONATIONS" Type="Self.DONATIONS" Multiplicity="*" />
+          <End Type="GiveAIDdbModel.USERS" Role="USERS" Multiplicity="0..1" />
+          <End Type="GiveAIDdbModel.DONATIONS" Role="DONATIONS" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="USERS">
               <PropertyRef Name="id" />
@@ -282,8 +306,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__GALLERY__event_i__3C69FB99">
-          <End Role="EVENTS" Type="Self.EVENTS" Multiplicity="0..1" />
-          <End Role="GALLERY" Type="Self.GALLERY" Multiplicity="*" />
+          <End Type="GiveAIDdbModel.EVENTS" Role="EVENTS" Multiplicity="0..1" />
+          <End Type="GiveAIDdbModel.GALLERY" Role="GALLERY" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="EVENTS">
               <PropertyRef Name="id" />
@@ -294,8 +318,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__FEEDBACKS__user___412EB0B6">
-          <End Role="USERS" Type="Self.USERS" Multiplicity="0..1" />
-          <End Role="FEEDBACKS" Type="Self.FEEDBACKS" Multiplicity="*" />
+          <End Type="GiveAIDdbModel.USERS" Role="USERS" Multiplicity="0..1" />
+          <End Type="GiveAIDdbModel.FEEDBACKS" Role="FEEDBACKS" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="USERS">
               <PropertyRef Name="id" />
@@ -305,33 +329,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="GiveAIDdbEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="ADMIN" EntityType="Self.ADMIN" />
-          <EntitySet Name="CAUSES" EntityType="Self.CAUSES" />
-          <EntitySet Name="DONATIONS" EntityType="Self.DONATIONS" />
-          <EntitySet Name="EVENTS" EntityType="Self.EVENTS" />
-          <EntitySet Name="FEEDBACKS" EntityType="Self.FEEDBACKS" />
-          <EntitySet Name="GALLERY" EntityType="Self.GALLERY" />
-          <EntitySet Name="JOBS" EntityType="Self.JOBS" />
-          <EntitySet Name="PARTNERS" EntityType="Self.PARTNERS" />
-          <EntitySet Name="USERS" EntityType="Self.USERS" />
-          <AssociationSet Name="FK__DONATIONS__cause__5165187F" Association="Self.FK__DONATIONS__cause__5165187F">
-            <End Role="CAUSES" EntitySet="CAUSES" />
-            <End Role="DONATIONS" EntitySet="DONATIONS" />
-          </AssociationSet>
-          <AssociationSet Name="FK__DONATIONS__user___5070F446" Association="Self.FK__DONATIONS__user___5070F446">
-            <End Role="USERS" EntitySet="USERS" />
-            <End Role="DONATIONS" EntitySet="DONATIONS" />
-          </AssociationSet>
-          <AssociationSet Name="FK__GALLERY__event_i__3C69FB99" Association="Self.FK__GALLERY__event_i__3C69FB99">
-            <End Role="EVENTS" EntitySet="EVENTS" />
-            <End Role="GALLERY" EntitySet="GALLERY" />
-          </AssociationSet>
-          <AssociationSet Name="FK__FEEDBACKS__user___412EB0B6" Association="Self.FK__FEEDBACKS__user___412EB0B6">
-            <End Role="USERS" EntitySet="USERS" />
-            <End Role="FEEDBACKS" EntitySet="FEEDBACKS" />
-          </AssociationSet>
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -341,91 +338,90 @@
           <EntitySetMapping Name="ADMIN">
             <EntityTypeMapping TypeName="GiveAIDdbModel.ADMIN">
               <MappingFragment StoreEntitySet="ADMIN">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="admin_fname" ColumnName="admin_fname" />
-                <ScalarProperty Name="admin_lname" ColumnName="admin_lname" />
-                <ScalarProperty Name="admin_email" ColumnName="admin_email" />
                 <ScalarProperty Name="admin_password" ColumnName="admin_password" />
+                <ScalarProperty Name="admin_email" ColumnName="admin_email" />
+                <ScalarProperty Name="admin_lname" ColumnName="admin_lname" />
+                <ScalarProperty Name="admin_fname" ColumnName="admin_fname" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CAUSES">
             <EntityTypeMapping TypeName="GiveAIDdbModel.CAUSES">
               <MappingFragment StoreEntitySet="CAUSES">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="cause_name" ColumnName="cause_name" />
                 <ScalarProperty Name="cause_funds" ColumnName="cause_funds" />
+                <ScalarProperty Name="cause_name" ColumnName="cause_name" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DONATIONS">
             <EntityTypeMapping TypeName="GiveAIDdbModel.DONATIONS">
               <MappingFragment StoreEntitySet="DONATIONS">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="donation_date" ColumnName="donation_date" />
-                <ScalarProperty Name="user_id" ColumnName="user_id" />
-                <ScalarProperty Name="cause_id" ColumnName="cause_id" />
                 <ScalarProperty Name="donation_amount" ColumnName="donation_amount" />
+                <ScalarProperty Name="cause_id" ColumnName="cause_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="donation_date" ColumnName="donation_date" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="EVENTS">
             <EntityTypeMapping TypeName="GiveAIDdbModel.EVENTS">
               <MappingFragment StoreEntitySet="EVENTS">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="event_title" ColumnName="event_title" />
-                <ScalarProperty Name="event_date" ColumnName="event_date" />
-                <ScalarProperty Name="event_poster" ColumnName="event_poster" />
                 <ScalarProperty Name="event_description" ColumnName="event_description" />
+                <ScalarProperty Name="event_poster" ColumnName="event_poster" />
+                <ScalarProperty Name="event_date" ColumnName="event_date" />
+                <ScalarProperty Name="event_title" ColumnName="event_title" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="FEEDBACKS">
             <EntityTypeMapping TypeName="GiveAIDdbModel.FEEDBACKS">
               <MappingFragment StoreEntitySet="FEEDBACKS">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="user_id" ColumnName="user_id" />
-                <ScalarProperty Name="feedback_msg" ColumnName="feedback_msg" />
                 <ScalarProperty Name="feedback_date" ColumnName="feedback_date" />
+                <ScalarProperty Name="feedback_msg" ColumnName="feedback_msg" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="GALLERY">
             <EntityTypeMapping TypeName="GiveAIDdbModel.GALLERY">
               <MappingFragment StoreEntitySet="GALLERY">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="image_url" ColumnName="image_url" />
                 <ScalarProperty Name="event_id" ColumnName="event_id" />
+                <ScalarProperty Name="image_url" ColumnName="image_url" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="JOBS">
             <EntityTypeMapping TypeName="GiveAIDdbModel.JOBS">
               <MappingFragment StoreEntitySet="JOBS">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="job_title" ColumnName="job_title" />
                 <ScalarProperty Name="job_description" ColumnName="job_description" />
-                <ScalarProperty Name="job_status" ColumnName="job_status" />
+                <ScalarProperty Name="job_title" ColumnName="job_title" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PARTNERS">
             <EntityTypeMapping TypeName="GiveAIDdbModel.PARTNERS">
               <MappingFragment StoreEntitySet="PARTNERS">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="partner_name" ColumnName="partner_name" />
                 <ScalarProperty Name="partner_logo" ColumnName="partner_logo" />
+                <ScalarProperty Name="partner_name" ColumnName="partner_name" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="USERS">
             <EntityTypeMapping TypeName="GiveAIDdbModel.USERS">
               <MappingFragment StoreEntitySet="USERS">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="user_fname" ColumnName="user_fname" />
-                <ScalarProperty Name="user_lname" ColumnName="user_lname" />
-                <ScalarProperty Name="user_email" ColumnName="user_email" />
                 <ScalarProperty Name="user_password" ColumnName="user_password" />
+                <ScalarProperty Name="user_email" ColumnName="user_email" />
+                <ScalarProperty Name="user_lname" ColumnName="user_lname" />
+                <ScalarProperty Name="user_fname" ColumnName="user_fname" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

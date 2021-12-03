@@ -9,6 +9,7 @@
 
 namespace Give_AID.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -17,7 +18,7 @@ namespace Give_AID.Models
         public int id { get; set; }
         public string image_url { get; set; }
         public Nullable<int> event_id { get; set; }
-    
+        [JsonIgnore]
         public virtual EVENTS EVENTS { get; set; }
     }
 }

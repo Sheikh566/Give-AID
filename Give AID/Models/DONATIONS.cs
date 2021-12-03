@@ -9,6 +9,7 @@
 
 namespace Give_AID.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -19,8 +20,9 @@ namespace Give_AID.Models
         public Nullable<int> user_id { get; set; }
         public Nullable<int> cause_id { get; set; }
         public Nullable<int> donation_amount { get; set; }
-    
+        [JsonIgnore]
         public virtual CAUSES CAUSES { get; set; }
+        [JsonIgnore]
         public virtual USERS USERS { get; set; }
     }
 }
