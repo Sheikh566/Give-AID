@@ -1,7 +1,7 @@
 import React from "react";
 import { List, TextField, DateField, ReferenceField, Datagrid, FunctionField} from "react-admin";
 
-export default function FeedbacksShow(props) {
+export default function FeedbacksList(props) {
     return (
     <List title='Feedbacks' pagination={false} {...props}>
         <Datagrid>
