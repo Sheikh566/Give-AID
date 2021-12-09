@@ -1,6 +1,6 @@
 import React from "react";
 import { Admin, Resource } from "react-admin";
-import simpleRestProvider from "ra-data-simple-rest";
+import myDataProvider from "./myDataProvider";
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import ManageAccountsOutlinedIcon from '@mui/icons-material/ManageAccountsOutlined';
 import VolunteerActivismOutlinedIcon from '@mui/icons-material/VolunteerActivismOutlined';
@@ -38,17 +38,17 @@ export default function AdminModule() {
     <>
       <Admin
         title="Give AID Admin Panel"
-        dataProvider={simpleRestProvider("https://localhost:44385/api")}
+        dataProvider={myDataProvider}
       >
-        <Resource name="USERS" list={UsersList} create={UserCreate} edit={UserEdit} icon={PersonOutlineIcon}/>
-        <Resource name="ADMINS" list={AdminsList} create={AdminCreate} edit={AdminEdit} icon={ManageAccountsOutlinedIcon}/>
-        <Resource name="CAUSES" list={CausesList} create={CauseCreate} edit={CauseEdit} icon={VolunteerActivismOutlinedIcon}/>
-        <Resource name="DONATIONS" list={DonationsList} icon={ReceiptLongOutlinedIcon}/>
-        <Resource name="EVENTS" list={EventsList} create={EventCreate} edit={EventEdit} icon={EventOutlinedIcon}/>
-        <Resource name="GALLERY" icon={CollectionsOutlinedIcon}/>
-        <Resource name="JOBS" list={JobsList} create={JobCreate} edit={JobEdit} icon={WorkOutlineOutlinedIcon}/>
-        <Resource name="PARTNERS" list={PartnersList} create={PartnerCreate} edit={PartnerEdit} icon={PeopleAltOutlinedIcon}/>
-        <Resource name="FEEDBACKS" list={FeedbacksList} icon={FeedbackOutlinedIcon}/>
+        <Resource name="users" list={UsersList} create={UserCreate} edit={UserEdit} icon={PersonOutlineIcon}/>
+        <Resource name="admins" list={AdminsList} create={AdminCreate} edit={AdminEdit} icon={ManageAccountsOutlinedIcon}/>
+        <Resource name="causes" list={CausesList} create={CauseCreate} edit={CauseEdit} icon={VolunteerActivismOutlinedIcon}/>
+        <Resource name="donations" list={DonationsList} icon={ReceiptLongOutlinedIcon}/>
+        <Resource name="events" list={EventsList} create={EventCreate} edit={EventEdit} icon={EventOutlinedIcon}/>
+        <Resource name="gallery" icon={CollectionsOutlinedIcon}/>
+        <Resource name="jobs" list={JobsList} create={JobCreate} edit={JobEdit} icon={WorkOutlineOutlinedIcon}/>
+        <Resource name="partners" list={PartnersList} create={PartnerCreate} edit={PartnerEdit} icon={PeopleAltOutlinedIcon}/>
+        <Resource name="feedbacks" list={FeedbacksList} icon={FeedbackOutlinedIcon}/>
       </Admin>
     </>
   );

@@ -6,7 +6,7 @@ export default function FeedbacksList(props) {
     <List title='Feedbacks' pagination={false} {...props}>
         <Datagrid>
             <TextField source="id" label="ID"/>
-            <ReferenceField label="User" source="user_id" reference="USERS">
+            <ReferenceField label="User" source="user_id" reference="users">
                 <FunctionField label="Name" render={record => `${record.user_fname} ${record.user_lname}`} />
             </ReferenceField>
             <TextField source="feedback_msg" label="Message"/>

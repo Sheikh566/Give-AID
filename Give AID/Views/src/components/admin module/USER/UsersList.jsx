@@ -6,10 +6,19 @@ import {
   EmailField,
   EditButton,
   DeleteButton,
+  // TextInput,
+  // ReferenceInput,
+  // SelectInput
 } 
 from "react-admin";
 
 export default function UsersList(props) {
+    // const postFilters = [
+    // <TextInput source="q" label="Search" alwaysOn />,
+    // <ReferenceInput source="id" label="User" reference="users" allowEmpty>
+    //   <SelectInput optionText="name" />
+    // </ReferenceInput>,
+    // ];
     return (
       <List {...props} pagination={false}>
           <Datagrid>
